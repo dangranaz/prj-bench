@@ -101,6 +101,12 @@ the `compare` subcommand (diff two runs or two engines side by side).
 - [engine-mlx](https://github.com/dangranaz/engine-mlx) — the engine under test.
 - [prj-scripts](https://github.com/dangranaz/prj-scripts) — start/stop the server.
 
+## ⭐ Support the project
+
+If these benchmarks are useful — or you value transparent, reproducible numbers
+you can re-run yourself — please **give the repository a star** and share it.
+Feedback, issues, and suggestions are very welcome.
+
 ## License
 
 MIT.
