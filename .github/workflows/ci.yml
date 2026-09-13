@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+
+defaults:
+  run:
+    working-directory: crates/engine-mlx
+
+jobs:
+  # The benchmark harness is pure Rust (HTTP client) — it must build on both
+  # Linux and macOS so anyone can compile it before pointing it at a server.
+  build:
+    name: build harness (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-14]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: crates/engine-mlx
+      - name: Build (release, locked)
+        run: cargo build --release --locked
+      - name: Clippy (informational)
+        run: cargo clippy || true
