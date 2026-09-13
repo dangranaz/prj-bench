@@ -1,0 +1,390 @@
+{
+  "environment": {
+    "engine": "engine-mlx",
+    "url": "http://127.0.0.1:11435",
+    "model": "Qwen3-1.7B-MLX-4bit",
+    "timestamp": "2026-09-12T20:59:38.003535+02:00",
+    "hostname": "apple-silicon",
+    "engine_commit": null,
+    "bench_version": "0.1.0"
+  },
+  "thresholds": null,
+  "passed": null,
+  "tests": [
+    {
+      "id": "factual",
+      "name": "Factual recall (capital of France)",
+      "category": "correctness",
+      "description": "Deterministic factual question; response must contain 'Paris'.",
+      "prompt": "What is the capital of France? Answer with just the city name.",
+      "passed": null,
+      "notes": [
+        "looked for /paris/i in response",
+        "matched"
+      ],
+      "metrics": [
+        [
+          "tps",
+          22.877666706086313
+        ],
+        [
+          "latency_ms",
+          1398.744042
+        ]
+      ],
+      "samples": [
+        {
+          "index": 0,
+          "max_tokens": 32,
+          "prompt_tokens": 16,
+          "completion_tokens": 32,
+          "latency_ms": 1398.744042,
+          "tps": 22.877666706086313
+        }
+      ],
+      "outputs": [
+        " No markdown, no explanation, just the city name.\nThe capital of France is Paris. Wait, that's not right. The capital of France is actually Paris"
+      ]
+    },
+    {
+      "id": "instruction",
+      "name": "Instruction following (reply DONE)",
+      "category": "correctness",
+      "description": "Must follow a strict format instruction: reply just 'DONE'.",
+      "prompt": "Reply with exactly one word: DONE. Do not add anything else.",
+      "passed": null,
+      "notes": [
+        "looked for /done/i: NOT matched",
+        "word_count=15 (concise<=5: false)"
+      ],
+      "metrics": [
+        [
+          "tps",
+          33.7506756252435
+        ],
+        [
+          "latency_ms",
+          474.064584
+        ],
+        [
+          "word_count",
+          15.0
+        ]
+      ],
+      "samples": [
+        {
+          "index": 0,
+          "max_tokens": 16,
+          "prompt_tokens": 16,
+          "completion_tokens": 16,
+          "latency_ms": 474.064584,
+          "tps": 33.7506756252435
+        }
+      ],
+      "outputs": [
+        " The user is asking for a single word to confirm that the task is complete."
+      ]
+    },
+    {
+      "id": "sustained",
+      "name": "Sustained throughput stability",
+      "category": "degradation",
+      "description": "Repeated identical requests must not degrade in throughput (leak guard).",
+      "prompt": "Write a short paragraph about the ocean.",
+      "passed": null,
+      "notes": [
+        "reps=20 tokens=128",
+        "tps min=38.6 mean=40.3 max=41.2",
+        "degradation(max→min)=6.4% first→last=-2.2% (leak guard uses first→last)",
+        "thresholds: first→last drop<=15% min_tps>=20"
+      ],
+      "metrics": [
+        [
+          "min_tps",
+          38.59479807702926
+        ],
+        [
+          "mean_tps",
+          40.258328446180656
+        ],
+        [
+          "max_tps",
+          41.23880234624622
+        ],
+        [
+          "degradation_pct",
+          6.4114477598489925
+        ],
+        [
+          "first_last_drop_pct",
+          -2.2011438212883006
+        ]
+      ],
+      "samples": [
+        {
+          "index": 0,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3213.933125,
+          "tps": 39.82659097799367
+        },
+        {
+          "index": 1,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3136.867292,
+          "tps": 40.80504149041955
+        },
+        {
+          "index": 2,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3190.8702089999997,
+          "tps": 40.114448917091636
+        },
+        {
+          "index": 3,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3155.387459,
+          "tps": 40.56554120949873
+        },
+        {
+          "index": 4,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3156.580958,
+          "tps": 40.55020343311594
+        },
+        {
+          "index": 5,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3297.60925,
+          "tps": 38.815999803494
+        },
+        {
+          "index": 6,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3316.509125,
+          "tps": 38.59479807702926
+        },
+        {
+          "index": 7,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3138.7920409999997,
+          "tps": 40.78001929660176
+        },
+        {
+          "index": 8,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3142.414792,
+          "tps": 40.733005816375375
+        },
+        {
+          "index": 9,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3103.872875,
+          "tps": 41.23880234624622
+        },
+        {
+          "index": 10,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3292.8804999999998,
+          "tps": 38.87174162560713
+        },
+        {
+          "index": 11,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3183.595625,
+          "tps": 40.20611128965225
+        },
+        {
+          "index": 12,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3149.245208,
+          "tps": 40.64465976636012
+        },
+        {
+          "index": 13,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3147.74725,
+          "tps": 40.664001850847455
+        },
+        {
+          "index": 14,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3187.910625,
+          "tps": 40.15169026264656
+        },
+        {
+          "index": 15,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3145.570667,
+          "tps": 40.692139376438305
+        },
+        {
+          "index": 16,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3194.3845,
+          "tps": 40.07031714560348
+        },
+        {
+          "index": 17,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3150.9237080000003,
+          "tps": 40.62300831816903
+        },
+        {
+          "index": 18,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3159.306833,
+          "tps": 40.51521639588718
+        },
+        {
+          "index": 19,
+          "max_tokens": 128,
+          "prompt_tokens": 10,
+          "completion_tokens": 128,
+          "latency_ms": 3144.713459,
+          "tps": 40.70323152453554
+        }
+      ],
+      "outputs": [
+        " 100 words\n\nThe ocean covers about 71% of the Earth's surface and is home to a vast array of marine life. It plays a crucial role in regulating the Earth's climate by absorbing carbon dioxide and heat…",
+        " 100 words\n\nThe ocean covers about 71% of the Earth's surface and is home to a vast array of marine life. It plays a crucial role in regulating the Earth's climate by absorbing carbon dioxide and heat…"
+      ]
+    },
+    {
+      "id": "length_ramp",
+      "name": "Length ramp (KV scaling)",
+      "category": "degradation",
+      "description": "Throughput across growing output lengths; measures KV-cache scaling.",
+      "prompt": "Tell me a detailed story about a journey across the sea.",
+      "passed": null,
+      "notes": [
+        "points=[128, 512, 1024]",
+        "tps first=40.7 last=34.1 drop=16.2%",
+        "thresholds: ramp_drop<=60% min_tps>=20",
+        "    128 tok => 40.7 t/s (3147 ms)",
+        "    512 tok => 38.7 t/s (13240 ms)",
+        "   1024 tok => 34.1 t/s (30053 ms)"
+      ],
+      "metrics": [
+        [
+          "first_tps",
+          40.67102962743335
+        ],
+        [
+          "last_tps",
+          34.072965220490985
+        ],
+        [
+          "ramp_drop_pct",
+          16.223008041310685
+        ],
+        [
+          "min_tps",
+          34.072965220490985
+        ]
+      ],
+      "samples": [
+        {
+          "index": 0,
+          "max_tokens": 128,
+          "prompt_tokens": 14,
+          "completion_tokens": 128,
+          "latency_ms": 3147.2033330000004,
+          "tps": 40.67102962743335
+        },
+        {
+          "index": 1,
+          "max_tokens": 512,
+          "prompt_tokens": 14,
+          "completion_tokens": 512,
+          "latency_ms": 13240.078333,
+          "tps": 38.67046607450008
+        },
+        {
+          "index": 2,
+          "max_tokens": 1024,
+          "prompt_tokens": 14,
+          "completion_tokens": 1024,
+          "latency_ms": 30053.151916000003,
+          "tps": 34.072965220490985
+        }
+      ],
+      "outputs": [
+        " The story should be in the form of a letter from a captain to his son, and it should be written in a very poetic and romantic way. The story should be written …",
+        " The story should be in the form of a letter from a captain to his son, and it should be written in a very poetic and romantic way. The story should be written …"
+      ]
+    },
+    {
+      "id": "coherence",
+      "name": "Multi-step reasoning coherence",
+      "category": "coherence",
+      "description": "Multi-step word problem; final answer must be 18 with coherent working.",
+      "prompt": "A store has 3 crates. Each crate holds 4 boxes. Each box holds 6 apples. The store sells 54 apples. How many apples are left? Think step by step, then end with a line exactly like: ANSWER: <number>.",
+      "passed": null,
+      "notes": [
+        "expected final answer 18 (3×4×6 − 54)",
+        "answer_line(18)=true loose(18)=true shows_work(72|12)=true formatted_answer_line=true"
+      ],
+      "metrics": [
+        [
+          "tps",
+          38.55549043614616
+        ],
+        [
+          "latency_ms",
+          10374.657292
+        ]
+      ],
+      "samples": [
+        {
+          "index": 0,
+          "max_tokens": 400,
+          "prompt_tokens": 56,
+          "completion_tokens": 400,
+          "latency_ms": 10374.657292,
+          "tps": 38.55549043614616
+        }
+      ],
+      "outputs": [
+        " Let's break it down.\n\nEach crate holds 4 boxes, and each box holds 6 apples. So, first, we need to find out how many apples are in one crate. That would be 4 boxes multiplied by 6 apples per box. Let me calculate that: 4 times 6 is 24. So, one crate has 24 apples.\n\nNow, the store has 3 crates. To find the total number of apples, we multiply the number of apples in one crate by the number of crates. That would be 24 apples per crate times 3 crates. Let me do that calculation: 24 times 3 is 72. So, the store has 72 apples in total.\n\nThe store sells 54 apples. To find out how many are left, we subtract the number sold from the total. That would be 72 minus 54. Let me do that subtraction: 72 minus 54 is 18. So, the store has 18 apples left.\n\nANSWER: <number>\nANSWER: 18\nLet me check the steps …"
+      ]
+    }
+  ]
+}
